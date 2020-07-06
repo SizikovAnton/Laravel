@@ -2,16 +2,11 @@
 
 @section('content')
 
-    @foreach ($news as $item)
-        <div class="blog-post">
-            <h2 class="blog-post-title">{{ $item['name'] }}</h2>
-
-            {!! $item['description'] !!}
-            
-            <p><a href="{{ route('news.id', ['id' => $item['id']]) }}">Read more...</a></p>
-        </div>
+    @foreach ($categories as $item)
+        <a href="{{ route('category.id', ['id' => $item['id']]) }}">{{ $item['name'] }}</a> <br>
     @endforeach
 
+    {{-- TODO вынести пагинацию в компонент --}}
     <nav class="blog-pagination">
         <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
         <a class="btn btn-outline-primary" href="#">Older</a>

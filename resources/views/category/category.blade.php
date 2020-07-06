@@ -1,19 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-
+    <h1>{{ $category['name'] }}</h1>
     @foreach ($news as $item)
         <div class="blog-post">
             <h2 class="blog-post-title">{{ $item['name'] }}</h2>
 
             {!! $item['description'] !!}
-            
             <p><a href="{{ route('news.id', ['id' => $item['id']]) }}">Read more...</a></p>
         </div>
-    @endforeach
-
-    <nav class="blog-pagination">
-        <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
-        <a class="btn btn-outline-primary" href="#">Older</a>
-    </nav>
+        <hr>
+    @endforeach    
 @endsection

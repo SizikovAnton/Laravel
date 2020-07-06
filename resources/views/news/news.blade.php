@@ -1,3 +1,8 @@
-<h1>{{ $news['name'] }}</h1>
+@extends('layouts.app')
 
-<p>{{ $news['content'] }}</p>
+@section('content')
+    <h1>{{ $news['name'] }}</h1>
+
+    <p>{{ $news['content'] }}</p>
+@endsection
+

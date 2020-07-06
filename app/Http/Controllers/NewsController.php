@@ -6,19 +6,20 @@ use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    private $categories = array();
+    // private $categories = array();
     private $news = array();
 
+    //TODO Убрать когда появятся модели
     /**
-     * Метод генерирует категории и новости для массивов $categories и $news
+     * Метод генерирует новости для массива $news
      */
     private function generateData()
     {
-        if(empty($this->categories)) {
+        if(empty($this->news)) {
             $numberCategories = 5;  //Кол-во создаваемых категорий
             $numberNews = 4;        //Кол-во создаваемых новостей в каждой категории
             for($i = 0; $i < $numberCategories; $i++) {
-                $this->categories[] = ['name' => "Category {$i}"];
+                // $this->categories[] = ['name' => "Category {$i}"];
                 for($j = 0; $j < $numberNews; $j++) {
                     $this->news[] = [
                         'id' => count($this->news),
@@ -32,12 +33,12 @@ class NewsController extends Controller
         }
     }
 
-    private function getCategory($id = null)
-    {
-        return $id === null ? $this->categories : $this->categories[$id];
-    }
+    // private function getCategory($id = null)
+    // {
+    //     return $id === null ? $this->categories : $this->categories[$id];
+    // }
 
-    private function getNews($id = null)
+    public function getNews($id = null)
     {
         return $id === null ? $this->news : $this->news[$id];
     }
@@ -49,19 +50,19 @@ class NewsController extends Controller
 
     public function index() 
     {
-        return view('news.index', ['categories' => $this->getCategory()]);
+        return view('news.index', ['news' => $this->getNews()]);
     }
 
-    public function category($id)
-    {
-        $outputNews = array();
+    // public function category($id)
+    // {
+    //     $outputNews = array();
         
-        for($i = 0; $i < count($this->getNews()); $i++) {
-            if($this->getNews($i)['category'] == $id) $outputNews[] = $this->getNews($i);
-        }
+    //     for($i = 0; $i < count($this->getNews()); $i++) {
+    //         if($this->getNews($i)['category'] == $id) $outputNews[] = $this->getNews($i);
+    //     }
 
-        return view('news.category', ['category' => $this->getCategory($id), 'news' => $outputNews]);
-    }
+    //     return view('news.category', ['category' => $this->getCategory($id), 'news' => $outputNews]);
+    // }
 
     public function news($id)
     {

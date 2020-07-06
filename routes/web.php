@@ -13,7 +13,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'NewsController@index')->name('index');
+
+Route::group(
+    [
+        "prefix" => "category",
+        "as" => "category.",
+    ],
+    function() {
+        Route::get('/', [
+            'uses' => 'CategoryController@index',
+            'as' => 'index',
+        ]);
+        
+        Route::get('/{id}', [
+            'uses' => 'CategoryController@category',
+            'as' => 'id',
+        ])->where('id', '\d+');
+    }
+);
 
 Route::group(
     [
@@ -48,27 +66,10 @@ Route::get('/login', [
     'as' => 'user.login'
 ]);
 
-// //Страница приветствия пользователя
-// Route::get('/hello.html', function () {
-//     $name = request()->has('name') ? request()->get('name') : null;
-//     if(is_null($name)) {
-//         return "Укажите имя";
-//     } else {
-//         return "Hello, " . $name;
-//     }
-// });
+Auth::routes();
 
-// //Страница с информацией о проекте
-// Route::get('/about.html', function () {
-//     return "<h1>Информация о проекте</h1>";
-// });
+Route::get('/home', 'HomeController@index')->name('home');
 
-// //Страница для вывода одной новости или списка новостей и проверка адреса без ".html"
-// Route::get('/news', function () {
-//     $id = request()->has('id') ? request()->get('id') : null;
-//     if(is_null($id)) {
-//         return "<h1>Список новостей</h1>";
-//     } else {
-//         return "<h1>Новость с ID=$id</h1>";
-//     }
-// });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
