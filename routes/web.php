@@ -66,6 +66,29 @@ Route::get('/login', [
     'as' => 'user.login'
 ]);
 
+Route::group(
+    [
+        "prefix" => "feedback",
+        "as" => "feedback.",
+    ],
+    function() {
+        Route::get('/', [
+            'uses' => 'FeedbackController@index',
+            'as' => 'index',
+        ]);
+
+        Route::post('/', [
+            'uses' => 'FeedbackController@addFeedback',
+            'as' => 'index',
+        ]);
+        
+        Route::get('list/{id?}', [
+            'uses' => 'FeedbackController@listFeedback',
+            'as' => 'list',
+        ]);
+    }
+);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
