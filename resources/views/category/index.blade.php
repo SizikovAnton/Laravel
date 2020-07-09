@@ -3,7 +3,7 @@
 @section('content')
 
     @foreach ($categories as $item)
-        <a href="{{ route('category.id', ['id' => $item['id']]) }}">{{ $item['name'] }}</a> <br>
+        <a href="{{ route('category.id', ['id' => $item->id]) }}">{{ $item->name }}</a> <br>
     @endforeach
 
     {{-- TODO вынести пагинацию в компонент --}}

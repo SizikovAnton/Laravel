@@ -2,8 +2,8 @@
 
 namespace App\View\Components;
 
+use App\Category;
 use Illuminate\View\Component;
-use App\Http\Controllers\CategoryController; //TODO Убрать когда появятся модели
 
 class TopMenu extends Component
 {
@@ -17,13 +17,6 @@ class TopMenu extends Component
         //
     }
 
-    //TODO Убрать или изменить когда появятся модели
-    public function getCategories()
-    {
-        $categoryController = new CategoryController();
-        return $categoryController->getCategory();
-    }
-
     /**
      * Get the view / contents that represent the component.
      *
@@ -31,6 +24,6 @@ class TopMenu extends Component
      */
     public function render()
     {
-        return view('components.top-menu', ['categories' => $this->getCategories()]);
+        return view('components.top-menu', ['categories' => (new Category())->getAll()]);
     }
 }
